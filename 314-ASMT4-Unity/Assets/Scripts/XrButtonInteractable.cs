@@ -52,6 +52,6 @@ public class XrButtonInteractable : XRSimpleInteractable
 
     public void ResetColor()
     {
-        buttonImage.color = pressedColor;
+        buttonImage.color = normalColor;
     }
 }
