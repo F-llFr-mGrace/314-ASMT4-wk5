@@ -3,30 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class CombinationLock : MonoBehaviour
 {
     [SerializeField] TMP_Text userInputText;
-    [SerializeField] TMP_Text lockText;
 
     [SerializeField] XrButtonInteractable[] comboButtons;
-    [SerializeField] Image lockedPanel;
-
-    [SerializeField] bool isLocked;
-    [SerializeField] string passcode = "134";
 
     // Start is called before the first frame update
     void Start()
     {
-        ResetUserInput();
-
+        userInputText.text = "";
         for (int i = 0; i < comboButtons.Length; i++)
         {
             comboButtons[i].selectEntered.AddListener(OnComboButtonPressed);
         }
-        UpdateLock();
     }
 
     private void OnComboButtonPressed(SelectEnterEventArgs arg0)
@@ -42,39 +34,5 @@ public class CombinationLock : MonoBehaviour
                 comboButtons[i].ResetColor();
             }
         }
-
-        if (userInputText.text.Length > passcode.Length)
-        {
-            ResetUserInput();
-        }
-
-        if (userInputText.text == passcode)
-        {
-            isLocked = false;
-        }
-        else
-        {
-            isLocked = true;
-        }
-        UpdateLock();
-    }
-
-    private void UpdateLock()
-    {
-        if (isLocked)
-        {
-            lockText.text = "Locked";
-            lockedPanel.color = Color.red;
-        }
-        else
-        {
-            lockText.text = "Unlocked";
-            lockedPanel.color = Color.green;
-        }
-    }
-
-    private void ResetUserInput()
-    {
-        userInputText.text = "";
     }
 }
